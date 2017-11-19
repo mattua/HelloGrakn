@@ -1,0 +1,62 @@
+define
+
+# Entities
+
+product sub entity
+	has name;
+
+datacentre sub entity has
+	name;
+
+name sub attribute datatype string;
+sinceDate sub attribute datatype string;
+
+# lets define a role
+
+production_hosting sub relationship
+	relates host_data_centre
+	relates hosted_product
+	has sinceDate;
+
+dr_hosting sub relationship
+	relates host_data_centre
+	relates hosted_product
+	has sinceDate;
+
+host_data_centre sub role;
+hosted_product sub role;
+
+product plays hosted_product;
+datacentre plays host_data_centre;
+
+
+# DATA
+insert
+$evb isa product has name "EVB";
+$loans isa product has name "LOANS";
+$cds isa product has name "CDS";
+$sf isa product has name "SF";
+$munis isa product has name "MUNIS";
+$parsing isa product has name "PARSING";
+$lon2 isa datacentre has name "LON2";
+$lon6 isa datacentre has name "LON6";
+$ams5 isa datacentre has name "AMS5";
+$nj4 isa datacentre has name "NJ4";
+$ric1 isa datacentre has name "RIC1";
+(hosted_product:$evb,host_data_centre:$lon2) isa production_hosting has sinceDate "2015";
+(hosted_product:$evb,host_data_centre:$lon6) isa dr_hosting has sinceDate "2015";
+(hosted_product:$munis,host_data_centre:$lon2) isa production_hosting has sinceDate "2015";
+(hosted_product:$munis,host_data_centre:$lon6) isa dr_hosting has sinceDate "2015";
+(hosted_product:$loans,host_data_centre:$ric1) isa production_hosting has sinceDate "2015";
+(hosted_product:$loans,host_data_centre:$nj4) isa dr_hosting has sinceDate "2015";
+
+
+
+
+
+
+
+
+
+
+
